@@ -1,0 +1,54 @@
+<!doctype>
+<html>
+  <head>
+    <title>Rock Paper Scissors Lizard Spock</title>
+    <style>
+    body {
+      font-family: 'Helvetica Neue';
+      margin: 15px 0 0 30px;
+    }
+    .choices img {
+      cursor: pointer;
+      opacity: 0.5;
+      width: 80px;
+      margin-right: 30px;
+      transition: opacity 1s;
+    }
+
+    .choices img:hover {
+      opacity: 1;
+    }
+    </style>
+  </head>
+  <body>
+    <h1>Rock Paper Scissors Lizard Spock</h1>
+    <div class='choices'>
+      <img src="images/rock.png" data-pick='rock'>
+      <img src="images/paper.png" data-pick='paper'>
+      <img src="images/scissors.png" data-pick='scissors'>
+      <img src="images/lizard.png" data-pick='lizard'>
+      <img src="images/spock.png" data-pick='spock'>
+    </div>
+    <h3 id="result"></h3>
+
+    <script src='http://code.jquery.com/jquery-2.0.3.js'></script>
+    <script src='lib/RockPaperScissors.js'></script>
+    <script>
+      // document.getElementById('result').innerHTML = 'hello';
+      $(document).ready(function(){
+        var player1 = new Player('Human');
+        var player2 = new Player('Computer');
+        var game = new Game(player1, player2);
+
+        $('.choices img').on('click', function() {
+          var humanPick = $(this).data('pick');
+
+          player1.picks(humanPick);
+          player2.picks('lizard');
+
+          $('#result').text(game.winner());
+        })
+      })
+    </script>
+  </body>
+</html>
