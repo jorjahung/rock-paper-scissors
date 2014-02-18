@@ -2,11 +2,13 @@
 function Player(name) {
   console.log(name);
   this.name = name;
+  this.score = 0;
 };
 
 Player.prototype.picks = function(playerPick) {
   this.pick = new Pick(playerPick);
-}
+};
+
 
 // Pick Class
 function Pick(name) {
@@ -27,7 +29,6 @@ Game.prototype.rules = {
   spock:    { rock: 'vaporizes', scissors: 'melts' }
 };
 
-
 Game.prototype.choosing_message = function() {
     return this.player1.name + " chose " + this.player1.pick.name + ". " + this.player2.name + " chose " + this.player2.pick.name + ".";
 };
@@ -40,10 +41,12 @@ Game.prototype.winner = function() {
  
 
   if(player1_wins) {
+    this.player1.score = this.player1.score + 1;
     return player1_pick.charAt(0).toUpperCase() + player1_pick.slice(1) +" "+ player1_wins +" "+ player2_pick + ". The winner is: " + this.player1.name.toUpperCase();
   }
 
   if(player2_wins) {
+    this.player2.score = this.player2.score + 1;
     return player2_pick.charAt(0).toUpperCase() + player2_pick.slice(1)  +" "+ player2_wins +" "+ player1_pick + ". The winner is: " + this.player2.name.toUpperCase();
   } 
 
@@ -51,3 +54,7 @@ Game.prototype.winner = function() {
     return 'Draw! You are both losers :P';
   };
 };
+
+Game.prototype.scores = function() {
+  return "<i>"+ this.player1.name+ "</i>: " + this.player1.score + " <i>" + this.player2.name+ "</i>: " + this.player2.score;
+}
